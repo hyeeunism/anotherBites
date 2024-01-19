@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<!-- 회원가입 -->
+	<insert id="register">
+	    INSERT INTO member(   
+	   					       userid
+	   					       , userpass
+	   					       , username
+	   					       , usernickname
+	   					       , usertel
+	   					       , useremail
+	   					       , useraddr )
+	                  VALUES(  
+	                 		   #{userId}
+	   					       , #{userPass}
+	   					       , #{userName}
+	   					       , #{userNickname}
+	   					       , #{userTel}
+	   					       , #{userEmail}
+	   					       , #{userAddr})
+    </insert>
+    
+    <!-- 로그인 -->
+	<select id="login" resultType="com.web.vo.MemberVO">
+		SELECT *
+		  FROM member
+		 WHERE userid = #{userId}
+		  AND userpass = #{userPass}   
+	</select>
+   
+</mapper>

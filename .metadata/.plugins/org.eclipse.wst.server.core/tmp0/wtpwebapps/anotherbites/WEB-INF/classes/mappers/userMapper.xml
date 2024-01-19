@@ -1,0 +1,65 @@
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+ 
+ <!-- 회원가입 -->
+<!-- 회원가입 -->
+	<insert id="register">
+	    INSERT INTO member(   
+	   					       userid
+	   					       , userpass
+	   					       , username
+	   					       , usernickname
+	   					       , usertel
+	   					       , useremail
+	   					       , useraddr )
+	                  VALUES(  
+	                 		   #{userId}
+	   					       , #{userPass}
+	   					       , #{userName}
+	   					       , #{userNickname}
+	   					       , #{userTel}
+	   					       , #{userEmail}
+	   					       , #{userAddr})
+    </insert>
+    
+<!-- id 중복체크 --> <!-- 아이디있으면1 없으면0 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE  userid = #{userId}
+	</select>
+	
+<!-- 닉네임 중복체크 --> <!-- 닉네임 있으면1 없으면0 -->
+	<select id="nicknameChk" resultType="int">
+		SELECT COUNT(*) FROM member
+		WHERE  usernickname = #{userNickname}
+	</select>
+
+<!-- 로그인 -->
+	<select id="login" resultType="com.web.vo.UserVO">
+		SELECT *
+		FROM member
+		WHERE userid = #{userId}
+	</select>
+	
+<!-- 회원정보 수정 -->	
+	<update id="userUpdate">
+	UPDATE member
+	SET username = #{userName}
+	WHERE userid = #{userId}
+	</update>
+	
+<!-- 회원탈퇴 -->
+	<delete id="userDelete">
+	DELETE FROM member
+	WHERE userid = #{userId}
+	</delete>
+	
+<!-- 패스워드 체크 -->
+	<select id="passChk" resultType="int">
+	SELECT COUNT(*) FROM member
+	WHERE userid = #{userId}
+	AND userpass = #{userPass}
+	</select>
+</mapper>
